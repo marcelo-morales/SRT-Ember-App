@@ -1,0 +1,36 @@
+/*jhu blue #003e7d, */
+* { 
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 1080px;
+    min-height: 100vh;
+    background: #f9f9f9;
+    margin: 0 auto;
+  }
+
+.menu {
+    height: 100px;
+    background: linear-gradient(to right,rgba(0,45,114, 1) 50%, rgba(0,45,115, 0.5) 60%, rgba(255,255,255,0) 100%), url('./Star_background_esa.jpg');
+    background-size: 100% 250px, 50% 250px;
+    background-repeat: repeat, no-repeat;
+    background-position: left, right;
+}
+
+.menu:hover{
+    background: linear-gradient(to right,rgba(0,45,114, 1) 50%, rgba(0,45,115, 0.7) 70%, rgba(255,255,255,0) 100%), url('./CMB_background.jpg') no-repeat;
+    background-size: 100% 250px, 50% 250px;
+    background-repeat:  repeat, no-repeat;
+    background-position: left, right;
+}
+
+
+
+.menu h3 {
+    position: relative;
+    color: #f9f9f9;
+
+
+}
