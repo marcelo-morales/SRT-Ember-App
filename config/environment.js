@@ -1,7 +1,10 @@
 'use strict';
 
+
+
 module.exports = function (environment) {
-  let ENV = {
+
+let ENV = {
     modulePrefix: 'cosmology-class',
     environment,
     rootURL: '/',
@@ -29,7 +32,15 @@ module.exports = function (environment) {
     // ENV.APP.LOG_TRANSITIONS = true;
     // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
     // ENV.APP.LOG_VIEW_LOOKUPS = true;
-  }
+    try {
+        let local = require('./local_config');
+        Object.keys(local.config).forEach(function(key) {
+            ENV[key] = local.config[key];
+        })
+    } catch (err) {
+        console.log(err, "config/local_config not found");
+    }
+}
 
   if (environment === 'test') {
     // Testem prefers this...
