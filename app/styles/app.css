@@ -12,15 +12,17 @@
   }
 
 .menu {
+    position: sticky;
     height: 100px;
-    background: linear-gradient(to right,rgba(0,45,114, 1) 50%, rgba(0,45,115, 0.5) 60%, rgba(255,255,255,0) 100%), url('./Star_background_esa.jpg');
+    background: linear-gradient(to right,rgba(0,45,114, 1) 50%, rgba(0,45,115, 0.5) 60%, rgba(255,255,255,0) 100%), url('./images/Star_background_esa.jpg');
     background-size: 100% 250px, 50% 250px;
     background-repeat: repeat, no-repeat;
     background-position: left, right;
 }
 
 .menu:hover{
-    background: linear-gradient(to right,rgba(0,45,114, 1) 50%, rgba(0,45,115, 0.7) 70%, rgba(255,255,255,0) 100%), url('./CMB_background.jpg') no-repeat;
+    position: sticky;
+    background: linear-gradient(to right,rgba(0,45,114, 1) 50%, rgba(0,45,115, 0.7) 70%, rgba(255,255,255,0) 100%), url('./images/CMB_background.jpg') no-repeat;
     background-size: 100% 250px, 50% 250px;
     background-repeat:  repeat, no-repeat;
     background-position: left, right;
@@ -31,6 +33,51 @@
 .menu h3 {
     position: relative;
     color: #f9f9f9;
+}
 
+.liveButton {
+    background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+    
+}
 
+.liveStream {
+    position: absolute; 
+    left: 10px;
+    top: 80px;
+    height: 230px;
+    width: 400px;
+}
+
+.liveStream large {
+    position:sticky;
+    width: 100%;
+    height: 100%;
+}
+
+.feed, 
+.video {
+    height: 100%;
+    width: 100%;
+}
+
+.fullscreenin {
+    background: url('./icons/fullscreen-enter.svg') no-repeat;
+    width: 10%;
+    height: 10%;
+}
+
+.fullscreenout {
+    position: relative;
+    background: url('./icons/fullscreen-exit.svg') no-repeat;
+    width: 10%;
+    height: 10%
 }
