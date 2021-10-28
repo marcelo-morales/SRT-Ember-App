@@ -1,13 +1,18 @@
-<div class="liveFeed">
+<div class="liveButton">
+    <button type="button"   {{on "click" this.toggleShow}}>
+        <span> Show Livestream</span>
+    </button>
+</div>
+{{#if this.isShown}}
+<div class="liveStream {{if this.isLarge "large"}}">
     <div class="title">
         <h3> Live look at the telescope</h3>
     </div>
-    <div class="videoFeed">
-        <video controls width="200">
-            <source class="video"
-                src="http://{{this.username}}:{{this.password}}@{{this.IPaddress}}/{{this.static}}"
-                type="video/mp4"
-                autoplay="true">
-        </video> 
+    <div class="feed">
+            <img class="video"
+                src="../../assets/images/CMB_background.jpg">
+                <!--src="http://{{this.username}}:{{this.password}}@{{this.IPaddress}}/{{this.static}}"-->
+            <input type="button" class="fullscreen{{if this.isLarge "out" "in"}}" {{on "click" this.toggleLarge}}/>
     </div>
 </div>
+{{/if}}
