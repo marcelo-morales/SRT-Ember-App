@@ -20,6 +20,9 @@
 /testem.log
 /yarn-error.log
 /config/local_config*
+/Sites
+/srt_*
+WireFrame*
 
 # ember-try
 /.node_modules.ember-try/

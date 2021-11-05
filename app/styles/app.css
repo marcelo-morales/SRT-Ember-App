@@ -33,20 +33,22 @@
 .menu h3 {
     position: relative;
     color: #f9f9f9;
+    font-family: quadon,Quadon,gentona,Gentona,calibri,helvetica,arial,sans-serif;
+    font-weight: 400;
+    font-size: 3rem;
+    text-decoration: none;
+    border: none;
 }
 
+
 .liveButton {
-    background-color: #4CAF50;
-  border: none;
-  color: white;
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 4px 2px;
-  cursor: pointer;
-    
+    position: relative;
+    background: url('./icons/media-record.svg') no-repeat;
+    border: none;
+    background-size: 100%;
+    left: 5px;
+    width: 40px;
+    height: 40px;
 }
 
 .liveStream {
@@ -57,10 +59,13 @@
     width: 400px;
 }
 
-.liveStream large {
-    position:sticky;
+.liveStreamlarge {
+    position: sticky;
+    left: 0;
+    top: 0;
+    z-index: 1;
     width: 100%;
-    height: 100%;
+    height: 621px;
 }
 
 .feed, 
@@ -69,15 +74,18 @@
     width: 100%;
 }
 
-.fullscreenin {
+.fullscreenin, .fullscreenout{
+    position: absolute;
     background: url('./icons/fullscreen-enter.svg') no-repeat;
-    width: 10%;
-    height: 10%;
+    background-size: 50%;
+    border: none;
+    width: 40px;
+    height: 40px;
+    bottom: 0;
+    right: 0;
 }
 
 .fullscreenout {
-    position: relative;
     background: url('./icons/fullscreen-exit.svg') no-repeat;
-    width: 10%;
-    height: 10%
+    background-size: 50%;
 }
