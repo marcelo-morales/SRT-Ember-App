@@ -1,0 +1,43 @@
+<Livefeed::Livefeed></Livefeed::Livefeed>
+<div>
+    <h2>Source name</h2>
+    <label for="sn">Choose source Name:</label>
+    <select name="sourcename" id="sn"></select>
+</div>
+<div>
+    <h2>Mode</h2>
+    <input type="radio" name="mode" id="n" value="n">
+    <label for="n"> 25_point scan</label>
+    <input type="radio" name="mode" id="b" value="b">
+    <label for="b">Beamswitch</label>
+</div>
+
+<div>
+    <h2>Azel</h2>
+    <input type="number" id="az_deg" >
+    <input type="number" id="el_deg">
+</div>
+<div>
+    <h2>Galactic</h2>
+    <input type="number" id="glat_def">
+    <input type="number" id="glon_deg">
+</div>
+<div>
+    <h2>Offset</h2>
+    <input type="number" id="azoff_deg">
+    <input type="number" id="eloff_deg">
+</div>
+<button >
+    <span> Vplot</span>
+</button>
+
+<div>
+    <h2>Frequency</h2>
+    <input type="number" id="freq">
+</div>
+
+<div>
+    <button {{on "click" this.submitCommands}}>
+        <span> record</span>
+    </button>
+</div>

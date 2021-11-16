@@ -21,8 +21,10 @@
 /yarn-error.log
 /config/local_config*
 /Sites
-/srt_*
+*.pdf
 WireFrame*
+commandfile.txt
+TODO
 
 # ember-try
 /.node_modules.ember-try/
