@@ -1,43 +1,79 @@
 <Livefeed::Livefeed></Livefeed::Livefeed>
-<div>
-    <h2>Source name</h2>
-    <label for="sn">Choose source Name:</label>
-    <select name="sourcename" id="sn"></select>
-</div>
-<div>
-    <h2>Mode</h2>
-    <input type="radio" name="mode" id="n" value="n">
-    <label for="n"> 25_point scan</label>
-    <input type="radio" name="mode" id="b" value="b">
-    <label for="b">Beamswitch</label>
-</div>
-
-<div>
-    <h2>Azel</h2>
-    <input type="number" id="az_deg" >
-    <input type="number" id="el_deg">
-</div>
-<div>
-    <h2>Galactic</h2>
-    <input type="number" id="glat_def">
-    <input type="number" id="glon_deg">
-</div>
-<div>
-    <h2>Offset</h2>
-    <input type="number" id="azoff_deg">
-    <input type="number" id="eloff_deg">
-</div>
-<button >
-    <span> Vplot</span>
-</button>
-
-<div>
-    <h2>Frequency</h2>
-    <input type="number" id="freq">
+<div class="basic">
+    <h1>Setup</h1>
+    <h3>Select position to move to</h3>
+    <div class="setup">
+        <h2>Source name</h2>
+        <label for="sn">Choose source Name:</label>
+        <select name="sourcename" id="sn"></select>
+        <div>
+            <h2>Mode</h2>
+            <Input @type="radio" name="mode" {{on 'click' this.toggle25Point}}/>
+            <label for="n"> 25_point scan</label>
+            <Input @type="radio" name="mode" {{on 'click' this.toggleBeamswitch}}/>
+            <label for="b">Beamswitch</label>
+        </div>
+    </div>
+    <div>
+        <h2>Time to record</h2>
+        <Input @type="number" id="record_time" @value={{this.time}}/>
+        <h2>Source name</h2>
+        <label for="sn">Choose source Name:</label>
+        <select name="sourcename" id="sn"></select>
+        <button id="addCommand"></button>
+        <div>
+            <h2>Frequency</h2>
+            <Input @type="number" id="freq" @value={{this.freq}}/>
+        </div>
+    </div>
+    <div class="commands">
+        <textarea></textarea>
+    </div>
 </div>
 
+<!--- Advanced settings -->
+<h1>Advanced- Hidden</h1>
 <div>
-    <button {{on "click" this.submitCommands}}>
-        <span> record</span>
+    <div>
+        <h2>Source name</h2>
+        <label for="sn">Choose source Name:</label>
+        <select name="sourcename" id="sn"></select>
+    </div>
+    <div>
+        <h2>Mode</h2>
+        <Input @type="radio" name="mode" {{on 'click' this.toggle25Point}}/>
+        <label for="n"> 25_point scan</label>
+        <Input @type="radio" name="mode" {{on 'click' this.toggleBeamswitch}}/>
+        <label for="b">Beamswitch</label>
+    </div>
+    
+    <div>
+        <h2>Azel</h2>
+        <Input @type="number" id="az_deg" @value={{this.az}}/>
+        <Input @type="number" id="el_deg" @value={{this.el}}/>
+    </div>
+    <div>
+        <h2>Galactic</h2>
+        <Input @type="number" id="glat_def" @value={{this.glat}}/>
+        <Input @type="number" id="glon_deg" @value={{this.glon}}/>
+    </div>
+    <div>
+        <h2>Offset</h2>
+        <Input @type="number" id="azoff_deg" @value={{this.azoff}}/>
+        <Input @type="number" id="eloff_deg" @value={{this.eloff}}/>
+    </div>
+    <button >
+        <span> Vplot</span>
     </button>
+    
+    <div>
+        <h2>Frequency</h2>
+        <Input @type="number" id="freq" @value={{this.freq}}/>
+    </div>
+    
+    <div>
+        <button {{on "click" this.submitCommands}}>
+            <span> record</span>
+        </button>
+    </div>
 </div>

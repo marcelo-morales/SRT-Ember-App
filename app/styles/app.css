@@ -55,15 +55,16 @@
     position: absolute; 
     right: 10px;
     top: 100px;
+    z-index: 100;
     height: 230px;
     width: 400px;
 }
 
 .liveStreamlarge {
-    position: sticky;
-    left: 0;
-    top: 0;
-    z-index: 1;
+    position: absolute;
+    left: 10px;
+    top: 100px;
+    z-index: 100;
     width: 100%;
     height: 621px;
 }
@@ -88,4 +89,25 @@
 .fullscreenout {
     background: url('./icons/fullscreen-exit.svg') no-repeat;
     background-size: 50%;
+}
+
+/*SRT styling*/
+.basic {
+    margin: auto;
+    position: relative;
+    width: 70%;
+    align-content: center;
+    border: 1px solid black;
+}
+
+.setup {
+    margin: auto;
+    border: 1px solid black;
+}
+
+.commands {
+    position:absolute;
+    right:0;
+    top:0;
+    border: 1px solid black;
 }
