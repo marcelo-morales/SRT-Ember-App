@@ -18,6 +18,8 @@ You will need the following things properly installed on your computer.
 * `cd cosmology-class`
 * `npm install`
 
+You will need to fill local_config.js with the appropriate SRT_username and SRT_password
+
 ## Running / Development
 
 * `ember serve`
