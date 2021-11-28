@@ -18,7 +18,10 @@ You will need the following things properly installed on your computer.
 * `cd cosmology-class`
 * `npm install`
 
-You will need to fill local_config.js with the appropriate SRT_username and SRT_password
+You will need to create a file in config named local_config.js and fill it according to the picture below!
+
+[localconfig.js](https://user-images.githubusercontent.com/68576850/142791881-748ff663-c08e-4e22-a34b-0b6c96ea502d.png)
+
 
 ## Running / Development
 
