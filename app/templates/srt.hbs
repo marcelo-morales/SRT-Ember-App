@@ -1,86 +1,87 @@
 <Livefeed::Livefeed></Livefeed::Livefeed>
-<div class="basicSettings">
-    <h1>Setup</h1>
-    <h3>Select position to move to</h3>
-    <div class="setup">
-        <h2>Source name</h2>
-        <label for="sn">Choose source Name:</label>
-        <select name="sourcename" id="sn" onchange={{action 'selectSource' value='target.value'}}></select>
-        <div>
-            <h2>Mode</h2>
-            <Input @type="radio" name="mode" {{on 'click' this.toggle25Point}}/>
-            <label for="n"> 25_point scan</label>
-            <Input @type="radio" name="mode" {{on 'click' this.toggleBeamswitch}}/>
-            <label for="b">Beamswitch</label>
+<div class="commandContainer">
+    <div class="basicCommands">
+        <h1>Setup</h1>
+        <hr class="break">
+        <h3>Select starting positions</h3>
+        <div class="setup">
+            <h2>Source name</h2>
+            <label class="settings" for="sn">Choose source Name:</label>
+            <select name="sourcename" id="sn" onchange={{action "selectSetupSource" value="target.value"}}>
+                <option value=""></option>
+                <option value="nice"> nice</option>
+                <option value="no">no</option>
+            </select>
+            <div class="freqDiv">
+                <h2>Frequency</h2>
+                <Input class="settings" @type="number" id="freq" @value={{this.freq}} required {{on "change" this.validateSetup}}/>
+                <label for="freq"> MHz</label>
+            </div>
+            <div>
+                <h2>Mode</h2>
+                <Input class="settings" @type="radio" name="mode" {{on "click" this.toggle25Point}}/>
+                <label for="n"> 25_point scan</label>
+                <Input class="settings" @type="radio" name="mode" {{on "click" this.toggleBeamswitch}}/>
+                <label for="b">Beamswitch</label>
+            </div>
         </div>
-        <div class="freqDiv">
-            <h2>Frequency</h2>
-            <Input @type="number" id="freq" @value={{this.freq}} {{on 'input' this.validateSetup}}/>
+        <hr class="break">
+        <div class="recordDiv">
+            <h2>Time to record</h2>
+            <Input class="settings" @type="number" id="record_time" @value={{this.recordTime}} {{on "change" this.validateTime}}/>
+            <h2>Source name</h2>
+            <label class="settings" for="sn">Choose source Name:</label>
+            <select name="sourcename" id="sn" onchange={{action "selectSource" value="target.value"}}>
+                <option value=""></option>
+                <option value="bad">bad</option>
+                <option value="good">good</option>
+            </select>
+            <div class="submitDiv">
+                <Input class="add" @type="button" @value="Submit" disabled={{this.setup}} {{on "click" this.submitBasicCommands}}/>
+            </div>
         </div>
-    </div>
-    <div class="recordDiv">
-        <h2>Time to record</h2>
-        <Input @type="number" id="record_time" @value={{this.time}}/>
-        <h2>Source name</h2>
-        <label for="sn">Choose source Name:</label>
-        <select name="sourcename" id="sn"></select>
-        <div class="submitDiv">
-            <Input class="add" @type="button" disabled={{this.setup}} {{on "click" this.submitCommands}}/>
-        </div>
+        <hr class="break">
     </div>
     <div class="commands">
         <label for="commandsTextArea">SRT Commands</label>
-        <textarea id="commandsTextArea" name="commands">{{this.commands}}</textarea>
-    </div>
+        <textarea id="commandsTextArea" name="commands">{{this.command}}</textarea>
+    </div> 
 </div>
-<div class="advancedSettings">
-    <Input class="advanced" @type="button" {{on "click" this.toggleAdvanced}}/>
-    {{#if this.advancedSettings}}
-    <!--- Advanced settings -->
-    <h1>Advanced- Hidden</h1>
-    <div>
-        <div>
-            <h2>Source name</h2>
-            <label for="sn">Choose source Name:</label>
-            <select name="sourcename" id="sn"></select>
-        </div>
-        <div>
-            <h2>Mode</h2>
-            <Input @type="radio" name="mode" {{on 'click' this.toggle25Point}}/>
-            <label for="n"> 25_point scan</label>
-            <Input @type="radio" name="mode" {{on 'click' this.toggleBeamswitch}}/>
-            <label for="b">Beamswitch</label>
-        </div>
-        
-        <div>
-            <h2>Azel</h2>
-            <Input @type="number" id="az_deg" @value={{this.az}}/>
-            <Input @type="number" id="el_deg" @value={{this.el}}/>
-        </div>
-        <div>
-            <h2>Galactic</h2>
-            <Input @type="number" id="glat_def" @value={{this.glat}}/>
-            <Input @type="number" id="glon_deg" @value={{this.glon}}/>
-        </div>
-        <div>
-            <h2>Offset</h2>
-            <Input @type="number" id="azoff_deg" @value={{this.azoff}}/>
-            <Input @type="number" id="eloff_deg" @value={{this.eloff}}/>
-        </div>
-        <button >
-            <span> Vplot</span>
-        </button>
-        
-        <div>
-            <h2>Frequency</h2>
-            <Input @type="number" id="freq" @value={{this.freq}}/>
-        </div>
-        
-        <div>
-            <button {{on "click" this.submitCommands}}>
-                <span> record</span>
+<div class="commandContainer"> 
+    <div class="advancedCommands">
+        <Input class="advanced"  @type="button" {{on "click" this.toggleAdvanced}}/>
+        {{#if this.advancedSettings}}
+        <!--- Advanced settings -->
+        <h1>Advanced Commands</h1>
+        <div class="advancedDiv">
+            <div>
+                <h2>Source name</h2>
+                <label class="settings" for="sn">Choose source Name:</label>
+                <select name="sourcename" id="sn"></select>
+            </div>
+            <div>
+                <h2>Azel</h2>
+                <Input class="settings" @type="number" id="az_deg" min="0" max="355" @value={{this.az}} {{on "change" this.validateAZ}}/>
+                <Input class="settings" @type="number" id="el_deg" min="0" max="89.0" @value={{this.el}} {{on "change" this.validateEL}}/>
+            </div>
+            <div>
+                <h2>Galactic</h2>
+                <Input class="settings" @type="number" id="glat_def" @value={{this.glat}} {{on "change" this.validateAdvanced}}/>
+                <Input class="settings" @type="number" id="glon_deg" @value={{this.glon}} {{on "change" this.validateAdvanced}}/>
+            </div>
+            <div>
+                <h2>Offset</h2>
+                <Input class="settings" @type="number" id="azoff_deg" @value={{this.azoff}} {{on "change" this.validateAdvanced}}/>
+                <Input class="settings" @type="number" id="eloff_deg" @value={{this.eloff}} {{on "change" this.validateAdvanced}}/>
+            </div>
+            <button >
+                <span> Vplot</span>
             </button>
+            
+            <div class="submitDiv">
+                <Input class="add" @type="button" @value="Submit" disabled={{this.setup}} {{on "click" this.submitAdvancedCommmands}}/>
+            </div>
         </div>
+        {{/if}}
     </div>
-    {{/if}}
 </div>

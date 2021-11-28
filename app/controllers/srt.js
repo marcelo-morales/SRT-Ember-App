@@ -4,8 +4,9 @@ import { action } from "@ember/object";
 import { format } from "prettier";
 
 export default class SrtController extends Controller {
-    //@tracked record;
-    @tracked commands = ["", ""];
+    //@tracked file;
+    @tracked prevCommand = ["", ""];
+    @tracked command = "";
     @tracked advancedSettings = false;
 
     //Setup
@@ -14,15 +15,15 @@ export default class SrtController extends Controller {
     @tracked is25Scan = undefined;
     @tracked freq = undefined; 
     //Record after setup
-
     @tracked recordTime;
+    
+    //advanced Settings
     @tracked az;
     @tracked el;
     @tracked glat;
     @tracked glon;
     @tracked azoff;
     @tracked eloff;
-
 
     @action toggleAdvanced() {
         this.advancedSettings = !this.advancedSettings;
@@ -38,19 +39,17 @@ export default class SrtController extends Controller {
         this.validateSetup();
     }
 
-    @action selectSource(source) {
+    //Setup methods
+    @action selectSetupSource(source) {
         this.sourceName = source;
         this.validateSetup();
     }
 
-    @action submitCommands() {
-        this.commands[0] = this.commands[1];
-        this.formatCommands();
-    }
-
-    formatCommands() {
-        let command = `\n:${this.recordTime} ${this.sourceName}`
-        this.commands[1] = this.commands.concat(command)
+    @action validateSetup() {
+        if (this.sourceName !== undefined && this.is25Scan !== undefined
+            && this.freq !== undefined) {
+            this.command = `: ${this.sourceName}\n: mode ${this.getMode()}\n: freq ${this.freq}\n: record name`;
+        }
     }
 
     getMode() {
@@ -61,15 +60,86 @@ export default class SrtController extends Controller {
         }
     }
 
-    @action validateSetup() {
-        if (this.sourceName !== undefined && this.is25Scan !== undefined
-            && this.freq !== undefined) {
-            this.setup = !this.setup;
-            this.commands[1] = `: ${this.sourceName}\n: mode ${this.getMode()}\n: freq ${this.freq}`;
+    //Basic settings
+    @action validateTime() {
+        if (this.recordTime !== undefined) {
+            this.setup = false;
+        } 
+     }
+ 
+     @action selectSource(source) {
+         this.sourceName = source;
+     }
+
+    @action submitBasicCommands() {
+        this.prevCommand = this.command;
+        let command = `\n:${this.recordTime} ${this.sourceName}`;
+        this.command = this.command.concat(command);
+        this.setup = true;
+        this.recordTime = undefined;
+    }
+
+    @action submitAdvancedCommmands() {
+        this.prevCommand = this.command;
+        let offsetCommand = `\n: offset ${this.azoff} ${this.eloff}`;
+        let galCommand = `\n: galactic ${this.glat} ${this.glon}`;
+        let azelCommand = `\n: azel ${this.az} ${this.el}`;
+
+        this.command = this.command.concat(azelCommand);
+        this.command = this.command.concat(galCommand);
+        this.command = this.command.concat(offsetCommand);
+
+        this.resetAdvanced();
+        this.setup = true;
+        this.recordTime = undefined;
+
+    }
+
+    @action validateAZ() {
+        if (isNaN(parseInt(this.az, 10))) {
+            this.az = undefined;
+        }
+        if (this.az < 0) {
+            this.az = 0;
+        } else if (this.az > 355) {
+            this.az = 355;
+        }
+        this.validateAdvanced();
+    }
+
+    @action validateEL() {
+        if (isNaN(parseInt(this.el, 10))) {
+            this.el = undefined;
+        }
+        if (this.el < 0) {
+            this.el = 0;
+        } else if (this.el > 89.0) {
+            this.el = 89.0;
+        }
+        this.validateAdvanced();
+    }
+
+    @action validateAdvanced() {
+        if (this.azoff === undefined || this.eloff === undefined
+            || this.glat === undefined || this.glon === undefined
+            || this.az === undefined || this.el === undefined) {
+                console.log("flipped")
+            this.setup = true;
+        } else {
+            console.log('not flip')
+            this.setup = false;
+            console.log(this.setup)
         }
     }
 
-    @action validateGalactic() {
-        
+    resetAdvanced() {
+        console.log("resetting");
+        this.az = undefined;
+        this.el = undefined;
+        this.glat = undefined;
+        this.glon = undefined;
+        this.azoff = undefined;
+        this.eloff = undefined;
     }
+
 };
