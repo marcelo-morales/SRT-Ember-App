@@ -19,6 +19,7 @@
     "lint:js": "eslint . --cache",
     "lint:js:fix": "eslint . --fix",
     "start": "ember serve",
+    "server": "cd server && node ./index.js",
     "test": "npm-run-all lint test:*",
     "test:ember": "ember test"
   },
@@ -34,6 +35,7 @@
     "ember-cli-app-version": "^5.0.0",
     "ember-cli-babel": "^7.26.6",
     "ember-cli-dependency-checker": "^3.2.0",
+    "ember-cli-dotenv": "^3.1.0",
     "ember-cli-htmlbars": "^5.7.1",
     "ember-cli-inject-live-reload": "^2.1.0",
     "ember-cli-sri": "^2.1.1",
@@ -68,6 +70,9 @@
   },
   "dependencies": {
     "axios": "^0.23.0",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "mongoose": "^6.1.1",
     "node-fetch": "^3.0.0"
   }
 }
