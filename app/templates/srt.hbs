@@ -37,7 +37,7 @@
                 <option value="good">good</option>
             </select>
             <div class="submitDiv">
-                <Input class="add" @type="button" @value="Submit" disabled={{this.setup}} {{on "click" this.submitBasicCommands}}/>
+                <Input class="add" @type="button" @value="Add" disabled={{this.setup}} {{on "click" this.submitBasicCommands}}/>
             </div>
         </div>
         <hr class="break">
@@ -45,6 +45,7 @@
     <div class="commands">
         <label for="commandsTextArea">SRT Commands</label>
         <textarea id="commandsTextArea" name="commands">{{this.command}}</textarea>
+        <Input class="add" @type="button" @value="Submit"  {{on "click" this.submitCommand}}/>
     </div> 
 </div>
 <div class="commandContainer"> 
@@ -79,7 +80,7 @@
             </button>
             
             <div class="submitDiv">
-                <Input class="add" @type="button" @value="Submit" disabled={{this.setup}} {{on "click" this.submitAdvancedCommmands}}/>
+                <Input class="add" @type="button" @value="Add" disabled={{this.setup}} {{on "click" this.submitAdvancedCommmands}}/>
             </div>
         </div>
         {{/if}}

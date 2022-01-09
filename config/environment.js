@@ -7,6 +7,8 @@ module.exports = function (environment) {
     locationType: 'auto',
     SRT_username: process.env.SRT_username,
     SRT_password: process.env.SRT_password,
+    PORT: process.env.PORT,
+    WORKERPORT: process.env.WORKERPORTS,
     EmberENV: {
       FEATURES: {
         // Here you can enable experimental features on an ember canary build
