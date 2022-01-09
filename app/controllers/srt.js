@@ -1,9 +1,12 @@
 import Controller from "@ember/controller";
 import { tracked } from "@glimmer/tracking";
+import ENV from 'cosmology-class/config/environment';
 import { action } from "@ember/object";
 import { format } from "prettier";
 
 export default class SrtController extends Controller {
+    idCount = 1;
+
     //@tracked file;
     @tracked prevCommand = ["", ""];
     @tracked command = "";
@@ -130,6 +133,22 @@ export default class SrtController extends Controller {
             this.setup = false;
             console.log(this.setup)
         }
+    }
+
+    //TODO: Check if command is duplicate
+    @action async submitCommand() {
+        this.command = this.command.concat("\n: stow");
+        let query = this.store.createRecord('query', {
+            command: this.command,
+            DBid: 1,
+            id: this.idCount
+        });
+        try {
+            await query.save()
+        } catch (error) {
+            console.error(error);
+        }
+        this.idCount++;
     }
 
     resetAdvanced() {
