@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const ResultSchema = new mongoose.Schema({
+const QuerySchema = new mongoose.Schema({
     command: {
         type: String, 
         default: "",
@@ -16,6 +16,6 @@ const ResultSchema = new mongoose.Schema({
     }
 });
 
-const Result = mongoose.model("Result", ResultSchema);
+const Query = mongoose.model("Query", QuerySchema);
 
-module.exports = Result;
+module.exports = Query;

@@ -1,18 +1,19 @@
-const Result = require("../models/result");
+const Query = require("../models/query");
 const ApiError = require("../models/ApiError");
 const mongoose = require("mongoose");
 
 
-class ResultDao {
+class QueryDao {
 
     async create(command) {
-        const result = await Result.create({
+        const query = await Query.create({
             command: command,
         })
+        console.log(query)
         return {
-            _id: result._id.toString(),
-            data: result.data,
-            image: result.image
+            _id: query._id.toString(),
+            data: query.data,
+            image: query.image
         }
     }
 
@@ -20,24 +21,24 @@ class ResultDao {
         if (!mongoose.isValidObjectId(id)) {
             throw new ApiError(400, "Id given is not valid");
         }
-        const result = await Result.findById(id).lean().select("-__v");
-        if (result === null) {
+        const query = await Query.findById(id).lean().select("-__v");
+        if (query === null) {
             throw new ApiError(404, "There is no command with the given ID");
         }
-        return result;
+        return query;
     }
 
     async readAll() {
-        const result = await Result.find({}).lean().select("-__v");
-        return result;
+        const query = await Query.find({}).lean().select("-__v");
+        return query;
     }
 
     async delete(id) {
         if (!mongoose.isValidObjectId(id)) {
             throw new ApiError(400, "Id given is not valid");
         }
-        const result = await this.read(id);
-        return Result.findByIdAndDelete(id).lean().select("-__v");
+        const query = await this.read(id);
+        return Query.findByIdAndDelete(id).lean().select("-__v");
     }
 
     async update(id, { command, data, image }) {
@@ -45,9 +46,9 @@ class ResultDao {
             throw new ApiError(400, "Id given is not valid");
         }
         console.log(id);
-        const result = await this.read(id);
+        const query = await this.read(id);
 
-        return Result.findByIdAndUpdate(
+        return Query.findByIdAndUpdate(
             id,
             { command, data, image },
             {new: true, runValidators: true})
@@ -56,4 +57,4 @@ class ResultDao {
     }
 }
 
-module.exports = ResultDao;
+module.exports = QueryDao;
