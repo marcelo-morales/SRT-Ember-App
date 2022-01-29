@@ -3,9 +3,9 @@ const ApiError = require("../models/ApiError");
 
 
 class QueryDao {
-    async create(command, table) {
+    async create(command, email, table) {
         const query = new Promise((resolve, reject) => {
-            connection.query(`INSERT INTO ${table} (command) VALUES (\"${command}\")`, (error, results, fields) => {
+            connection.query(`INSERT INTO ${table} (command, email) VALUES (\"${command}\", \"${email}\")`, (error, results, fields) => {
                 if (error) {
                     reject(error);
                 } else {
