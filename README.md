@@ -25,12 +25,12 @@ You will need to create a file in root folder named __.env__ and fill out the fo
 SRT_username=""
 SRT_password=""
 MONGODB_URI=""
-HOST=""
-USER=""
-SQL_PASSWORD=""
-SQL_DB=""
-SQL_TABLE_RESULTS=""
-SQL_TABLE_QUERIES=""
+MYSQL_HOST=""
+MYSQL_USER=""
+MYSQL_PASSWORD=""
+MYSQL_DB=""
+MYSQL_TABLE_RESULTS=""
+MYSQL_TABLE_QUERIES=""
 ```
 
 [localconfig.js](https://user-images.githubusercontent.com/68576850/142791881-748ff663-c08e-4e22-a34b-0b6c96ea502d.png)
