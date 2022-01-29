@@ -17,8 +17,21 @@ You will need the following things properly installed on your computer.
 * `git clone <repository-url>` this repository
 * `cd cosmology-class`
 * `npm install`
+* `node .\api\MySQL\setup.js` this ensures that the database to be used is already setup
 
-You will need to create a file in config named local_config.js and fill it according to the picture below!
+You will need to create a file in root folder named __.env__ and fill out the following variables
+
+```
+SRT_username=""
+SRT_password=""
+MONGODB_URI=""
+HOST=""
+USER=""
+SQL_PASSWORD=""
+SQL_DB=""
+SQL_TABLE_RESULTS=""
+SQL_TABLE_QUERIES=""
+```
 
 [localconfig.js](https://user-images.githubusercontent.com/68576850/142791881-748ff663-c08e-4e22-a34b-0b6c96ea502d.png)
 
