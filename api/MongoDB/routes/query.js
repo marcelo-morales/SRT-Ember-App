@@ -1,7 +1,11 @@
 const express = require("express");
 const QueryDao = require("../data/QueryDao");
+const SourceDao = require("../data/SourceDao");
+const ResultsDao = require("../data/ResultsDao")
 const ApiError = require("../models/ApiError");
 const query = new QueryDao();
+const source = new SourceDao();
+const results = new ResultsDao();
 const router = express.Router();
 
 
@@ -69,6 +73,27 @@ router.delete("/api/queries/:id", async (req, res, next) => {
     try {
         const { id } = req.params;
         const data = await query.delete(id);
+        res.status(200).json({data});
+    } catch (err) {
+        next(err);
+    }
+});
+
+router.get("/api/sources", async (req, res, next) => {
+    try{
+        const data = await source.readAll();
+        res.status(200).json({data});
+    } catch (err) {
+        next(err);
+    }
+});
+
+// Get results from DB based on a command
+router.get("/api/results", async (req, res, next) => {
+    try{
+        const { command } = req.body
+        const data = await results.read(command);
+        
         res.status(200).json({data});
     } catch (err) {
         next(err);

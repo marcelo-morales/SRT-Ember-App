@@ -5,14 +5,10 @@ const QuerySchema = new mongoose.Schema({
         default: "",
         required: true
     },
-    data: {
+    email: {
         type: String,
         default: "",
-        required: false
-    },
-    image: {
-        type: Buffer,
-        required: false 
+        required: true
     }
 });
 

@@ -1,33 +1,31 @@
-const Query = require("../models/query");
+const Results = require("../models/results");
 const ApiError = require("../models/ApiError");
 const mongoose = require("mongoose");
 
 
-class QueryDao {
+class ResultsDao {
 
-    async create(command, email) {
-        const query = await Query.create({
+    async create(command, data, plot) {
+        const query = await Results.create({
             command: command,
-            email: email
-        })
+            data: data,
+            plot: plot
+        });
         return {
             _id: query._id.toString(),
-        }
+        };
     }
 
-    async read(id) {
-        if (!mongoose.isValidObjectId(id)) {
-            throw new ApiError(400, "Id given is not valid");
-        }
-        const query = await Query.findById(id).lean().select("-__v");
+    async read(command) {
+        const query = await Results.find({command: command}).lean().select("-__v");
         if (query === null) {
-            throw new ApiError(404, "There is no query with the given ID");
+            throw new ApiError(404, "There is no result of the given command");
         }
         return query;
     }
 
     async readAll() {
-        const query = await Query.find({}).lean().select("-__v");
+        const query = await Results.find({}).lean().select("-__v");
         return query;
     }
 
@@ -36,22 +34,22 @@ class QueryDao {
             throw new ApiError(400, "Id given is not valid");
         }
         const query = await this.read(id);
-        return Query.findByIdAndDelete(id).lean().select("-__v");
+        return Results.findByIdAndDelete(id).lean().select("-__v");
     }
 
-    async update(id, { command, data, image }) {
+    async update(id, { command, data, plot }) {
         if (!mongoose.isValidObjectId(id)) {
             throw new ApiError(400, "Id given is not valid");
         }
         const query = await this.read(id);
 
-        return Query.findByIdAndUpdate(
+        return Results.findByIdAndUpdate(
             id,
-            { command, email},
+            { command, data, plot },
             {new: true, runValidators: true})
             .lean()
             .select("-__v");
     }
 }
 
-module.exports = QueryDao;
+module.exports = ResultsDao;
