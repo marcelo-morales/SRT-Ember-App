@@ -2,6 +2,9 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const query = require("../routes/query.js"); 
+const result = require("../routes/results.js"); 
+const source = require("../routes/source.js"); 
+ 
 const { globalErrorHandler } = require("../util/middleware");
 
 const app = express();
@@ -14,6 +17,8 @@ app.get("/", (req, res) => {
 });
 
 app.use(query);
+app.use(result);
+app.use(source);
 app.use(globalErrorHandler);
 module.exports = app;
 

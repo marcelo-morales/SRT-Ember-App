@@ -1,29 +1,15 @@
 const connection = require("./db").connection
 const ApiError = require("../models/ApiError");
-const table = process.env.MYSQL_TABLE_QUERIES;
+const table = process.env.MYSQL_TABLE_SOURCE;
 
-
-class QueryDao {
-    async create(command, email) {
+class SourceDao {
+    async create(source) {
         const query = new Promise((resolve, reject) => {
-            connection.query(`INSERT INTO ${table} (command, email) VALUES (\"${command}\", \"${email}\")`, (error, results, fields) => {
+            connection.query(`INSERT INTO ${table} (sources) VALUES (\"${source}\")`, (error, results, fields) => {
                 if (error) {
                     reject(error);
                 } else {
                     resolve({"resultsID": results.insertId});
-                }
-            });
-        });
-        return query;
-    }
-
-    async read(id) {
-        const query = new Promise((resolve, reject) => { 
-            connection.query(`SELECT * FROM ${table} WHERE _ID=${id}`, (error, results, fields) => {
-                if (error) {
-                    reject(error);
-                } else {
-                    resolve({"results": results});
                 }
             });
         });
@@ -43,10 +29,10 @@ class QueryDao {
         return query;
     }
 
-    async delete(id) {
-        const read = this.read(id);
+    async deleteAll() {
         const query = new Promise((resolve, reject) => { 
-            connection.query(`DELETE FROM ${table} WHERE _ID = ${id}`, (error, results, fields) => {
+            let table_query = `DROP TABLE IF EXISTS ${table}; CREATE TABLE ${table} (sources TEXT NOT NULL);`
+            connection.query(table_query, (error, results, fields) => {
                 if (error) {
                     reject(error);
                 } else {
@@ -59,4 +45,6 @@ class QueryDao {
     }
 
 }
-module.exports = QueryDao;
+
+
+module.exports = SourceDao;

@@ -1,12 +1,11 @@
 const connection = require("./db").connection
-const ApiError = require("../models/ApiError");
-const table = process.env.MYSQL_TABLE_QUERIES;
+const table = process.env.MYSQL_TABLE_RESULTS;
 
 
-class QueryDao {
-    async create(command, email) {
+class ResultsDao {
+    async create(command, data, plot) {
         const query = new Promise((resolve, reject) => {
-            connection.query(`INSERT INTO ${table} (command, email) VALUES (\"${command}\", \"${email}\")`, (error, results, fields) => {
+            connection.query(`INSERT INTO ${table} (command, plot, data) VALUES (\"${command}\",\"${plot}\", \"${data}\")`, (error, results, fields) => {
                 if (error) {
                     reject(error);
                 } else {
@@ -17,9 +16,9 @@ class QueryDao {
         return query;
     }
 
-    async read(id) {
+    async read(command) {
         const query = new Promise((resolve, reject) => { 
-            connection.query(`SELECT * FROM ${table} WHERE _ID=${id}`, (error, results, fields) => {
+            connection.query(`SELECT * FROM ${table} WHERE command=\"${command}\"`, (error, results, fields) => {
                 if (error) {
                     reject(error);
                 } else {
@@ -58,5 +57,21 @@ class QueryDao {
         return read;
     }
 
+    //Can only update the results table, not the query table
+    async update(id, { data, plot }) {
+        const query = new Promise((resolve, reject) => { 
+            connection.query(`UPDATE ${table} SET data = \"${data}\", plot= \"${plot}\" WHERE _ID = ${id}`
+              , (error, results, fields) => {
+                if (error) {
+                    reject(error);
+                } else {
+                    console.log(results)
+                    resolve({"results": results});
+                }
+            });
+        });
+        return query;
+    }
 }
-module.exports = QueryDao;
+
+module.exports = ResultsDao;
