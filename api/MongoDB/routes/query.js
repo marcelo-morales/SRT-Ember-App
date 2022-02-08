@@ -92,6 +92,9 @@ router.get("/api/sources", async (req, res, next) => {
 router.get("/api/results", async (req, res, next) => {
     try{
         const { command } = req.body
+        if (command == "") {
+            throw new ApiError(400, "The command cannot be empty");
+        }
         const data = await results.read(command);
         
         res.status(200).json({data});
