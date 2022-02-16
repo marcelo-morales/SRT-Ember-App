@@ -29,7 +29,6 @@ export default class SrtController extends Controller {
 
   @action toggleAdvanced() {
     this.advancedSettings = !this.advancedSettings;
-    console.log(sources);
   }
 
   @action toggle25Point() {
@@ -50,7 +49,7 @@ export default class SrtController extends Controller {
 
   @action validateSetup() {
     if (
-      this.sourceName !== undefined &&
+      this.sourceName !== "" &&
       this.is25Scan !== undefined &&
       this.freq !== undefined
     ) {

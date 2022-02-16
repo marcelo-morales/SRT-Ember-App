@@ -7,7 +7,7 @@ export default class sourcelistSerializer extends JSONAPISerializer {
         id: count.toString(),
         type: primaryModelClass.modelName,
         relationships: {
-            source: {
+            sources: {
                 data: []
             } 
         }};
@@ -17,9 +17,21 @@ export default class sourcelistSerializer extends JSONAPISerializer {
             id: count.toString(),
             attributes: {
                 source: source.sources
+            },
+            relationships: {
+                sourcelist: {
+                    data: {
+                        type: primaryModelClass.modelName,
+                        id: "1"
+                    }
+                }
             }
         };
-        data.relationships.source.data.push(sourceData);
+        store.push({data: sourceData});
+        data.relationships.sources.data.push({
+            type: sourceData.type, 
+            id: sourceData.id
+        });
         count++;
     });
     payload["data"] = data;

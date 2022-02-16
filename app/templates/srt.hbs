@@ -9,8 +9,9 @@
             <label class="settings" for="sn">Choose source Name:</label>
             <select name="sourcename" id="sn" onchange={{action "selectSetupSource" value="target.value"}}>
                 <option value=""></option>
-                <option value="nice"> nice</option>
-                <option value="no">no</option>
+                {{#each this.model as |source|}}
+                <option value={{source.source}}>{{source.source}}</option>
+                {{/each}}
             </select>
             <div class="freqDiv">
                 <h2>Frequency</h2>
