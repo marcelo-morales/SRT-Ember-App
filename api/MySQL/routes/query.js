@@ -27,7 +27,6 @@ router.post("/api/queries", async (req, res, next) => {
         if (command === undefined || command === "") {
             throw new ApiError(400, "Require command string");
         }
-        email = "email";
         if (email === undefined || email === "") {
             throw new ApiError(400, "Require email to submit command");
         }

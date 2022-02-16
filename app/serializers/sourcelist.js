@@ -4,11 +4,11 @@ export default class sourcelistSerializer extends JSONAPISerializer {
   normalizeFindAllResponse(store, primaryModelClass, payload, id, requestType) {
     let count = 1;
     let data = {
-        "id": count.toString(),
-        "type": primaryModelClass.modelName,
-        "relationships": {
-            "source": {
-                "data": []
+        id: count.toString(),
+        type: primaryModelClass.modelName,
+        relationships: {
+            source: {
+                data: []
             } 
         }};
     payload.results.forEach((source) => {
@@ -16,7 +16,7 @@ export default class sourcelistSerializer extends JSONAPISerializer {
             type: "source",
             id: count.toString(),
             attributes: {
-                "source": source.sources
+                source: source.sources
             }
         };
         data.relationships.source.data.push(sourceData);
