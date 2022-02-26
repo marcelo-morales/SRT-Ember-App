@@ -1,89 +1,175 @@
 <Livefeed::Livefeed></Livefeed::Livefeed>
 <div class="commandContainer">
     <div class="basicCommands">
-        <h1>Setup</h1>
+        <h1>Commands</h1>
         <hr class="break">
-        <h3>Select starting positions</h3>
-        <div class="setup">
-            <h2>Source name</h2>
-            <label class="settings" for="sn">Choose source Name:</label>
-            <select name="sourcename" id="sn" onchange={{action "selectSetupSource" value="target.value"}}>
-                <option value=""></option>
-                {{#each this.model as |source|}}
-                <option value={{source.source}}>{{source.source}}</option>
-                {{/each}}
-            </select>
-            <div class="freqDiv">
-                <h2>Frequency</h2>
-                <Input class="settings" @type="number" id="freq" @value={{this.freq}} required {{on "change" this.validateSetup}}/>
-                <label for="freq"> MHz</label>
-            </div>
-            <div>
-                <h2>Mode</h2>
-                <Input class="settings" @type="radio" name="mode" {{on "click" this.toggle25Point}}/>
-                <label for="n"> 25_point scan</label>
-                <Input class="settings" @type="radio" name="mode" {{on "click" this.toggleBeamswitch}}/>
-                <label for="b">Beamswitch</label>
-            </div>
+        <div>    
+            <h3>Email</h3>
+            <Input class="settings" @type="email" id="email" @value={{this.email}} />
         </div>
-        <hr class="break">
-        <div class="recordDiv">
-            <h2>Time to record</h2>
-            <Input class="settings" @type="number" id="record_time" @value={{this.recordTime}} {{on "change" this.validateTime}}/>
-            <h2>Source name</h2>
+        <div class="freqDiv">
+            <h3>Recording Frequency</h3>
+            <Input class="settings" @type="number" id="freq" @value={{this.freq}} />
+            <label for="freq"> MHz</label>
+            <Input class="add" @type="button" @value="Add Frequency"  {{on "click" this.addFrequency}}/>
+        </div>
+        <div>
+            <h3>Recording Mode</h3>
+            <Input class="settings" @type="radio" name="mode" {{on "click" this.toggle25Point}}/>
+            <label for="n"> 25_point scan</label>
+            <Input class="settings" @type="radio" name="mode" {{on "click" this.toggleBeamswitch}}/>
+            <label for="b">Beamswitch</label>
+            <Input class="add" @type="button" @value="Add Mode"  {{on "click" this.addMode}}/>
+        </div>
+        <div>    
+            <h3>Recording time</h3>
+            <Input class="settings" @type="number" id="record_time" @value={{this.recordTime}} />
+            <Input class="add" @type="button" @value="Add Time"  {{on "click" this.addTime}}/>
+        </div>
+        <div>
+            <h3>Source name</h3>
             <label class="settings" for="sn">Choose source Name:</label>
             <select name="sourcename" id="sn" onchange={{action "selectSource" value="target.value"}}>
                 <option value=""></option>
-                <option value="bad">bad</option>
-                <option value="good">good</option>
+                {{#each this.model as |source|}}
+                    <option value={{source.source}}>{{source.source}}</option>
+                {{/each}}
             </select>
-            <div class="submitDiv">
-                <Input class="add" @type="button" @value="Add" disabled={{this.setup}} {{on "click" this.submitBasicCommands}}/>
-            </div>
+            <Input class="add" @type="button" @value="Add Source"  {{on "click" this.addSource}}/>
         </div>
-        <hr class="break">
+        <div>
+            <h3>Azimuth</h3>
+            <div class="rangeWithOutput">
+                <div class="range">
+                    <Input class="settings" @type="range" id="az" min="0" max="355" list="az_tickmarks" @value={{this.az}}/>
+                        <datalist id="az_tickmarks" style="--list-length: 11;">
+                            <option value="0" label="0&#176;"></option>
+                            <option value="35"></option>
+                            <option value="70"></option>
+                            <option value="105"></option>
+                            <option value="140"></option>
+                            <option value="175" label="175&#176;"></option>
+                            <option value="210"></option>
+                            <option value="245"></option>
+                            <option value="280"></option>
+                            <option value="315"></option>
+                            <option value="355" label="355&#176;"></option>
+                        </datalist>
+                    </div> 
+                <output class="rangeOutput" id="az_out">{{this.az}}</output> 
+            </div>
+
+            <h3>Elevation</h3>
+            <div class="rangeWithOutput">
+                <div class="range">
+                    <Input class="settings" @type="range" id="el" min="0" max="89.0" step="0.1" list="el_tickmarks" @value={{this.el}}/>
+                    <datalist id="el_tickmarks" style="--list-length: 10;">
+                        <option value="0" label="0&#176;"></option>
+                        <option value="10.0"></option>
+                        <option value="20.0"></option>
+                        <option value="30.0"></option>
+                        <option value="40.0"></option>
+                        <option value="50.0" label="50.0&#176;"></option>
+                        <option value="60.0"></option>
+                        <option value="70.0"></option>
+                        <option value="80.0"></option>
+                        <option value="89.0" label="89.0&#176;"></option>
+                    </datalist>
+                    </div>
+                <output class="rangeOutput" id="el_out">{{this.el}}</output>
+            </div>
+            <Input class="add" @type="button" @value="Add AZ/EL"  {{on "click" this.addAzEl}}/>
+        </div>
+        <div>
+            <h3>Azimuth Offset</h3>
+            <div class="rangeWithOutput">
+                <div class="range">
+                    <Input class="settings" @type="range" id="azoff_deg" min="0" max="355" list="azoff_tickmarks" @value={{this.azoff}}/>
+                        <datalist id="azoff_tickmarks" style="--list-length: 11;">
+                            <option value="0" label="0&#176;"></option>
+                            <option value="35"></option>
+                            <option value="70"></option>
+                            <option value="105"></option>
+                            <option value="140"></option>
+                            <option value="175" label="175&#176;"></option>
+                            <option value="210"></option>
+                            <option value="245"></option>
+                            <option value="280"></option>
+                            <option value="315"></option>
+                            <option value="355" label="355&#176;"></option>
+                        </datalist>
+                    </div> 
+                <output class="rangeOutput" id="azoff_out">{{this.azoff}}</output> 
+            </div>
+            <h3>Elevation Offset</h3>
+            <div class="rangeWithOutput">
+                <div class="range">
+                    <Input class="settings" @type="range" id="eloff_deg" min="0" max="89.0" step="0.1" list="eloff_tickmarks" @value={{this.eloff}}/>
+                    <datalist id="eloff_tickmarks" style="--list-length: 10;">
+                        <option value="0" label="0&#176;"></option>
+                        <option value="10.0"></option>
+                        <option value="20.0"></option>
+                        <option value="30.0"></option>
+                        <option value="40.0"></option>
+                        <option value="50.0" label="50.0&#176;"></option>
+                        <option value="60.0"></option>
+                        <option value="70.0"></option>
+                        <option value="80.0"></option>
+                        <option value="89.0" label="89.0&#176;"></option>
+                    </datalist>
+                    </div>
+                <output class="rangeOutput" id="eloff_out">{{this.eloff}}</output>
+            </div>
+            <Input class="add" @type="button" @value="Add AZ/EL Offset"  {{on "click" this.addOffset}}/>
+        </div>
+        <div>
+            <h3>Galactic Latitude</h3>
+            <div class="rangeWithOutput">
+                <div class="range">
+                    <Input class="settings" @type="range" id="glat_deg" min="0" max="355" list="glat_tickmarks" @value={{this.glat}}/>
+                        <datalist id="glat_tickmarks" style="--list-length: 11;">
+                            <option value="0" label="0&#176;"></option>
+                            <option value="35"></option>
+                            <option value="70"></option>
+                            <option value="105"></option>
+                            <option value="140"></option>
+                            <option value="175" label="175&#176;"></option>
+                            <option value="210"></option>
+                            <option value="245"></option>
+                            <option value="280"></option>
+                            <option value="315"></option>
+                            <option value="355" label="355&#176;"></option>
+                        </datalist>
+                    </div> 
+                <output class="rangeOutput" id="glat_out">{{this.glat}}</output> 
+            </div>
+            <h3>Galactic Longitude</h3>
+            <div class="rangeWithOutput">
+                <div class="range">
+                    <Input class="settings" @type="range" id="glon_deg" min="0" max="89.0" step="0.1" list="glon_tickmarks" @value={{this.glon}}/>
+                    <datalist id="glon_tickmarks" style="--list-length: 10;">
+                        <option value="0" label="0&#176;"></option>
+                        <option value="10.0"></option>
+                        <option value="20.0"></option>
+                        <option value="30.0"></option>
+                        <option value="40.0"></option>
+                        <option value="50.0" label="50.0&#176;"></option>
+                        <option value="60.0"></option>
+                        <option value="70.0"></option>
+                        <option value="80.0"></option>
+                        <option value="89.0" label="89.0&#176;"></option>
+                    </datalist>
+                    </div>
+                <output class="rangeOutput" id="glon_out">{{this.glon}}</output>
+            </div>
+            <Input class="add" @type="button" @value="Add Galactic Position"  {{on "click" this.addGalactic}}/>
+        </div>
+        
     </div>
     <div class="commands">
         <label for="commandsTextArea">SRT Commands</label>
         <textarea id="commandsTextArea" name="commands">{{this.command}}</textarea>
-        <Input class="add" @type="button" @value="Submit"  {{on "click" this.submitCommand}}/>
+        <Input class="add" @type="button" @value="Submit to telescope"  {{on "click" this.submitCommand}}/>
     </div> 
-</div>
-<div class="commandContainer"> 
-    <div class="advancedCommands">
-        <Input class="advanced"  @type="button" {{on "click" this.toggleAdvanced}}/>
-        {{#if this.advancedSettings}}
-        <!--- Advanced settings -->
-        <h1>Advanced Commands</h1>
-        <div class="advancedDiv">
-            <div>
-                <h2>Source name</h2>
-                <label class="settings" for="sn">Choose source Name:</label>
-                <select name="sourcename" id="sn"></select>
-            </div>
-            <div>
-                <h2>Azel</h2>
-                <Input class="settings" @type="number" id="az_deg" min="0" max="355" @value={{this.az}} {{on "change" this.validateAZ}}/>
-                <Input class="settings" @type="number" id="el_deg" min="0" max="89.0" @value={{this.el}} {{on "change" this.validateEL}}/>
-            </div>
-            <div>
-                <h2>Galactic</h2>
-                <Input class="settings" @type="number" id="glat_def" @value={{this.glat}} {{on "change" this.validateAdvanced}}/>
-                <Input class="settings" @type="number" id="glon_deg" @value={{this.glon}} {{on "change" this.validateAdvanced}}/>
-            </div>
-            <div>
-                <h2>Offset</h2>
-                <Input class="settings" @type="number" id="azoff_deg" @value={{this.azoff}} {{on "change" this.validateAdvanced}}/>
-                <Input class="settings" @type="number" id="eloff_deg" @value={{this.eloff}} {{on "change" this.validateAdvanced}}/>
-            </div>
-            <button type="button">
-                <span> Vplot</span>
-            </button>
-            
-            <div class="submitDiv">
-                <Input class="add" @type="button" @value="Add" disabled={{this.setup}} {{on "click" this.submitAdvancedCommmands}}/>
-            </div>
-        </div>
-        {{/if}}
     </div>
-</div>
+
