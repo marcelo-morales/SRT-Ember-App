@@ -1,8 +1,28 @@
 <nav class='menu' >
-    <LinkTo @route='srt' class='menu-index'>
+    <LinkTo @route='srt' class="home-linkto">
         <h3> Classroom Cosmology</h3> 
     </LinkTo>
-    <div class='links'>        
-        <input  type="button" class="liveButton"  {{on "click" this.toggleShow}}>
+    
+    <div class='links'>  
+        <div class="routes">
+            <Input  @type="button" class="liveButton"  {{on "click" this.toggleShow}}/>  
+        </div>    
+        <div class="routes">
+            <LinkTo @route="class" class="route-linkto">
+                <h3>Class</h3>
+            </LinkTo> 
+        </div>  
+        <div class="routes">
+            <LinkTo @route="guide" class="route-linkto">
+                <h3>Guide</h3>
+            </LinkTo> 
+        </div>  
+        <div class="routes">
+            <LinkTo @route="about" class="route-linkto">
+                <h3>About</h3>
+            </LinkTo> 
+        </div>  
     </div>
+
+
 </nav>

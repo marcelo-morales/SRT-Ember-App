@@ -1,8 +1,18 @@
 /*jhu blue #003e7d, */
+@font-face {
+    font-family: "Gentona-Light";
+    src: url("./Fonts/Gentona-Light.woff");
+}
+@font-face {
+    font-family: "Gentona-SemiBold";
+    src: url("./Fonts/Gentona-SemiBold.woff");
+}
+
 * { 
     margin: 0;
     padding: 0;
 }
+
 
 .container {
     max-width: 100%;
@@ -30,16 +40,19 @@
 
 
 
-.menu h3 {
+.links {
     position: relative;
-    color: #f9f9f9;
-    font-family: quadon,Quadon,gentona,Gentona,calibri,helvetica,arial,sans-serif;
-    font-weight: 400;
-    font-size: 3rem;
-    text-decoration: none;
-    border: none;
+    height: 50%;
+    width: 100%;
 }
 
+.routes {
+    position: relative;
+    float: left;
+    display: inline;
+    height: 40px;
+    padding-left: 50px
+}
 
 .liveButton {
     position: relative;
@@ -90,6 +103,8 @@
     background: url('./icons/fullscreen-exit.svg') no-repeat;
     background-size: 50%;
 }
+
+
 
 /*SRT styling*/
 .commandContainer {
@@ -172,6 +187,7 @@
     margin-bottom: 3px;
 }
 
+/*Input type range*/
 input[type=range] {
     --thumb-width: 3px;
      width: 100%;
@@ -241,3 +257,23 @@ input[type="range"]::-moz-range-track {
 }
 
 
+/*Fonts*/
+.route-linkto,
+.home-linkto {
+    position: relative;
+    color: #f9f9f9;
+    font-family: Gentona-Light,system-ui,BlinkMacSystemFont,-apple-system,Segoe UI,sans-serif;
+    text-decoration: none;
+    border: none;
+}
+
+.home-linkto {
+    font-size: 2.5rem;
+    font-family: Gentona-SemiBold;
+}
+
+.route-linkto {
+    font-size: 1.7rem;
+}
+
+/*General Css*/
