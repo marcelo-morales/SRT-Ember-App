@@ -3,6 +3,9 @@
     <div class="basicCommands">
         <h1>Commands</h1>
         <hr class="break">
+        <div>
+            <Input class="record" id="record" @type="button" @value="Start Recording" {{on "click" this.addRecord}}/>
+        </div>
         <div>    
             <h3>Email</h3>
             <Input class="settings" @type="email" id="email" @value={{this.email}} />
@@ -24,6 +27,7 @@
         <div>    
             <h3>Recording time</h3>
             <Input class="settings" @type="number" id="record_time" @value={{this.recordTime}} />
+            <label for="record_time"> secs</label>
             <Input class="add" @type="button" @value="Add Time"  {{on "click" this.addTime}}/>
         </div>
         <div>
@@ -56,7 +60,7 @@
                             <option value="355" label="355&#176;"></option>
                         </datalist>
                     </div> 
-                <output class="rangeOutput" id="az_out">{{this.az}}</output> 
+                <output class="rangeOutput" id="az_out">{{this.az}}&#176;</output> 
             </div>
 
             <h3>Elevation</h3>
@@ -76,7 +80,7 @@
                         <option value="89.0" label="89.0&#176;"></option>
                     </datalist>
                     </div>
-                <output class="rangeOutput" id="el_out">{{this.el}}</output>
+                <output class="rangeOutput" id="el_out">{{this.el}}&#176;</output>
             </div>
             <Input class="add" @type="button" @value="Add AZ/EL"  {{on "click" this.addAzEl}}/>
         </div>
@@ -99,7 +103,7 @@
                             <option value="355" label="355&#176;"></option>
                         </datalist>
                     </div> 
-                <output class="rangeOutput" id="azoff_out">{{this.azoff}}</output> 
+                <output class="rangeOutput" id="azoff_out">{{this.azoff}}&#176;</output> 
             </div>
             <h3>Elevation Offset</h3>
             <div class="rangeWithOutput">
@@ -118,7 +122,7 @@
                         <option value="89.0" label="89.0&#176;"></option>
                     </datalist>
                     </div>
-                <output class="rangeOutput" id="eloff_out">{{this.eloff}}</output>
+                <output class="rangeOutput" id="eloff_out">{{this.eloff}}&#176;</output>
             </div>
             <Input class="add" @type="button" @value="Add AZ/EL Offset"  {{on "click" this.addOffset}}/>
         </div>
@@ -141,7 +145,7 @@
                             <option value="355" label="355&#176;"></option>
                         </datalist>
                     </div> 
-                <output class="rangeOutput" id="glat_out">{{this.glat}}</output> 
+                <output class="rangeOutput" id="glat_out">{{this.glat}}&#176;</output> 
             </div>
             <h3>Galactic Longitude</h3>
             <div class="rangeWithOutput">
@@ -160,7 +164,7 @@
                         <option value="89.0" label="89.0&#176;"></option>
                     </datalist>
                     </div>
-                <output class="rangeOutput" id="glon_out">{{this.glon}}</output>
+                <output class="rangeOutput" id="glon_out">{{this.glon}}&#176;</output>
             </div>
             <Input class="add" @type="button" @value="Add Galactic Position"  {{on "click" this.addGalactic}}/>
         </div>

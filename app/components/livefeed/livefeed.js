@@ -21,7 +21,7 @@ export default class LivefeedComponent extends Component {
         return getOwner(this).lookup('service:live-stream');
     }
     get IPaddress() {
-        return '10.162.60.78';
+        return '10.162.60.78:80';
     }
     get username() {
         return encodeURIComponent(ENV.SRT_username);

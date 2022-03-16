@@ -116,9 +116,7 @@
 }
 
 
-.basicCommands,
-.navigation,
-.advancedCommands {
+.basicCommands {
     width: 50%;
     position: relative;
     align-content: center;
@@ -127,6 +125,19 @@
 .basicCommands {
     position: relative;
     float: left;
+}
+
+.record:invalid {
+    background-color: red;
+    border: 2px solid red;
+}
+
+.email {
+    border: 2px solid green;
+}
+
+.email:invalid {
+    border: 2px solid red;
 }
 
 .commands {
@@ -147,30 +158,8 @@
     height: 75vh;
 }
 
-.recordDiv {
-    width: 50%;
-}
-
-.advancedDiv {
-    width: 70%;
-}
-
-.freqDiv {
-    position: relative;
-    width: 100%;
-}
-
-.submitDiv .add{
-    position: relative;
-    left: 150%;
-}
-
-.advanced {
-    background: url('./icons/caret-bottom.svg') no-repeat;
-    background-size: 50%;
-    border: none;
-    width: 40px;
-    height: 40px;
+.commands textarea:invalid{
+    border: 2px solid red;
 }
 
 .break {
@@ -185,6 +174,11 @@
     margin-left: 10%;
     margin-top: 3px;
     margin-bottom: 3px;
+}
+
+
+.settings:invalid{
+    border: 2px solid red;
 }
 
 /*Input type range*/
