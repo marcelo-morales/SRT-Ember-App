@@ -3,12 +3,10 @@ module.exports = function (environment) {
   let ENV = {
     modulePrefix: 'cosmology-class',
     environment,
-    rootURL: '/',
+    rootURL: '/srt',
     locationType: 'auto',
     SRT_username: process.env.SRT_username,
     SRT_password: process.env.SRT_password,
-    PORT: process.env.PORT,
-    WORKERPORT: process.env.WORKERPORTS,
     EmberENV: {
       FEATURES: {
         // Here you can enable experimental features on an ember canary build
