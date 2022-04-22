@@ -1,0 +1,24 @@
+{{#if this.authentication.isVisible}}
+<img class="popupbg" src="data:," alt=""> 
+<div class="login">
+    <div id="wrapper">
+        <Input @type="button" id="close" {{ on "click" this.toggleVisible}}/>
+        <div>
+            <h1>Login</h1>
+        </div>
+        <div class="loginInput"> 
+            <label for="username">Username</label>
+            <Input @type="text" id="username" @value={{this.username}}/> 
+        </div>
+        <div class="loginInput">
+            <label for="password">Password</label>
+            <Input @type="text" id="password" @value={{this.password}}/> 
+        </div>
+        <div class="loginInput">
+           <Input @type="button" id="auth" @value="Login" {{ on "click" this.authenticate }}/> 
+           <label for="auth" id="authLabel"></label>
+        </div>
+    </div>    
+</div>  
+{{/if}}
+

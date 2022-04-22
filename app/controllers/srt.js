@@ -2,12 +2,15 @@ import Controller from '@ember/controller';
 import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
 import InputError from '../helpers/InputError';
+import { inject as service } from '@ember/service';
+import { checkCookieExist, writeCookie } from '../helpers/cookies';
 
 export default class SrtController extends Controller {
   idCount = 1;
   totalTime = 0;
   RECORD_LIMIT = 1800;
   recording = false;
+  @service('login') authentication;
   @tracked prevCommand = ['', ''];
   @tracked command = "";
 
@@ -122,7 +125,6 @@ export default class SrtController extends Controller {
       return;
     }
     this.totalTime = time_temp;
-        console.log(this.totalTime, this.recordTime)
 
     this.prevCommand = this.command;
     let timeCommand = `\n:${this.recordTime}`;
@@ -135,38 +137,56 @@ export default class SrtController extends Controller {
 
   //TODO: Check if command is duplicate
     @action async submitCommand() { 
-        try {
-            //console.log(this.email)
+        try { 
+            
             if (this.email === undefined) {
                throw new InputError("email", "Email required to submit command");
             } else if (this.command === undefined || this.command === "") {
                throw new InputError("commandsTextArea", "Command are required")
-            
             }
-                if (!this.command.includes("record")){
-                   throw new InputError("commandsTextArea", "Command needs to be recorded");
-                }  
-                if (this.command.indexOf("record") === this.command.length - 6) {
-                    throw new InputError("commandsTextArea", "Recorded command cannot be empty");
-                }
-                this.command = this.command.concat('\n: roff\n: stow\n: vplot');
-                let query = this.store.createRecord('query', {
-                    command: this.command,
-                    id: this.idCount,
-                    email: this.email
-                });
-                try {
-                    await query.save();
-                } catch (error) {
-                    console.error(error);
-                }
-                this.idCount++;
+            if (!this.command.includes("record")){
+                throw new InputError("commandsTextArea", "Command needs to be recorded");
+            }  
+            if (this.command.indexOf("record") === this.command.length - 6) {
+                throw new InputError("commandsTextArea", "Recorded command cannot be empty");
+            } 
+            if (!this.authentication.isAuthenticated) {
+                await this.performAuthentication();
+            }
+             
+            this.command = this.command.concat('\n: roff\n: stow\n: vplot');
+            //Need to Authenticate submitting of code on server side
+            let query = this.store.createRecord('query', {
+                command: this.command,
+                id: this.idCount,
+                email: this.email
+            });
+            try {
+                await query.save();
+            } catch (error) {
+                console.error(error);
+            }
+            this.idCount++;
+            
         } catch (error) {
             if (error instanceof InputError) {
                 document.getElementById(error.element_id).setCustomValidity(error.message);
             } else {
-                console.error(error);
+                console.error(error, typeof error);
             }
+        }
+    }
+
+    async performAuthentication() {
+        if (checkCookieExist("token")) {
+            let b = this.store.createRecord('verify');
+            b.save().then((s) => {
+                    this.authentication.toggleAuthenticated();
+                }).catch((err) => {
+                   this.authentication.toggleVisible(); 
+                });
+        } else {
+            this.authentication.toggleVisible(); 
         }
     }
 }
