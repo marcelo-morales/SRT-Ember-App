@@ -6,7 +6,8 @@ export default class verifySerializer extends JSONAPISerializer {
             id: 0,
             type: primaryModelClass.modelName,
             attributes: {
-                message: payload.message
+                message: payload.message,
+                role: payload.role
             }
         }
         store.push({data: data});

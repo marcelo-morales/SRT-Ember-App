@@ -3,7 +3,7 @@ import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
 import InputError from '../helpers/InputError';
 import { inject as service } from '@ember/service';
-import { checkCookieExist, writeCookie } from '../helpers/cookies';
+import { checkCookieExist, deleteCookie, writeCookie } from '../helpers/cookies';
 
 export default class SrtController extends Controller {
   idCount = 1;
@@ -181,8 +181,9 @@ export default class SrtController extends Controller {
         if (checkCookieExist("token")) {
             let b = this.store.createRecord('verify');
             b.save().then((s) => {
-                    this.authentication.toggleAuthenticated();
+                    this.authentication.toggleAuthenticated(s.get("role"));
                 }).catch((err) => {
+                    deleteCookie("token");
                    this.authentication.toggleVisible(); 
                 });
         } else {

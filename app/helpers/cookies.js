@@ -12,3 +12,7 @@ export const writeCookie = (name, value) => {
 export const readCookie = (name) => {
     return document.cookie.split(';').find(row => row.startsWith(`${name}=`)).split("=")[1];
 }
+
+export const deleteCookie = (name) => {
+    return document.cookie = `${name}=;expires=${new Date(0).toUTCString()}`;
+}
