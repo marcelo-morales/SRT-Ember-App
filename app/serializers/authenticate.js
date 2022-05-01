@@ -9,7 +9,8 @@ export default class authenticateSerializer extends JSONAPISerializer {
             type: primaryModelClass.modelName,
             attributes: {
                 token: payload.token,
-                message: payload.message
+                message: payload.message,
+                role: payload.role
             }
         }
         store.push({data: data});

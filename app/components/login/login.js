@@ -14,10 +14,6 @@ export default class loginComponent extends Component{
         this.authentication.toggleVisible();
     }
 
-    @action toggleAuthenticated(event) {
-        this.authentication.toggleAuthenticated();
-    }
-
     @action async authenticate() {
         if (this.username === "") {
             const msg = "Username is empty";
@@ -31,7 +27,7 @@ export default class loginComponent extends Component{
             try {
                 let b = await this.store.queryRecord('authenticate', {username: this.username, password: this.password});
                 writeCookie("token", b.get("token"));
-                this.toggleAuthenticated();
+                this.authentication.toggleAuthenticated(b.get("role"));
                 this.toggleVisible();
             } catch (err) {
                 const msg = err.errors[0].detail;
