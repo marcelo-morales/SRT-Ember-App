@@ -11,4 +11,5 @@ Router.map(function () {
     this.route('about', { path: '/about'});
     this.route('class', { path: '/class'});
     this.route('guide', { path: '/guide'});
+    this.route('admin', { path: '/administration'});
 });

@@ -6,11 +6,27 @@ import { inject as service} from '@ember/service';
 export default class NavBar extends Component{
 
     @service('live-stream') liveStream;
+    @service('login') authentication;
     
     @action toggleShow() {
         this.liveStream.toggleShow();
     }
+    
+    @action logout() {
+        this.authentication.logout();
+    }
+
+    @action login() {
+        this.authentication.toggleVisible();
+    }
+
+    @action isAdmin() {
+        return this.authentication.role === "ADMIN";
+    }
+
     get ls() {
         return getOwner(this).lookup('service:live-stream')
     }
+
+
 }

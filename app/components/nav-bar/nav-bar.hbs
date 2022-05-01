@@ -22,7 +22,25 @@
                 <h3>About</h3>
             </LinkTo> 
         </div>  
+        {{#if this.authentication.isAuthenticated}}
+            {{#if this.isAdmin}}
+                <div class="routes">
+                    <LinkTo @route="admin" class="route-linkto">
+                        <h3>Admin</h3>
+                    </LinkTo> 
+                </div>
+            {{/if}}
+            <div class="routes">
+                <LinkTo @route="srt" class="route-linkto" {{on "click" this.logout}}>
+                    <h3>Logout</h3>
+                </LinkTo>
+            </div> 
+        {{else}}
+            <div class="routes">
+                <LinkTo @route="srt" class="route-linkto" {{on "click" this.login}}>
+                    <h3>Login</h3>
+                </LinkTo>
+            </div> 
+        {{/if}}    
     </div>
-
-
 </nav>
