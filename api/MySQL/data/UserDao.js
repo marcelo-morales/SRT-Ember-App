@@ -29,7 +29,7 @@ class UserDao {
                     console.log(error)
                     reject(error);
                 } else {
-                    resolve({ username: username, password: password });
+                    resolve({ _ID: results.insertId ,username: username, password: password , role: role});
                 } 
               }
             );
@@ -57,7 +57,8 @@ class UserDao {
 
     async readAll() {
         const query = new Promise((resolve, reject) => {
-            connection.query(`SELECT username, password, role, failedLogin FROM Users`,
+            connection.query(`SELECT _ID, username, role, failedLogin FROM Users 
+                                ORDER BY role ASC`,
             (error, results, fields) => {
                 if (error) {
                     reject(error);
@@ -71,7 +72,6 @@ class UserDao {
 
     async update(username, password) {
         const hash = await hashPassword(password);
-        console.log(hash, password)
         const query = new Promise((resolve, reject) => {
             connection.query(
             `UPDATE ${table} SET password = \"${hash}\" WHERE username = \"${username}\"`,
@@ -89,10 +89,10 @@ class UserDao {
         });
     }
 
-    async delete(username) {
+    async delete(id) {
         const query = new Promise((resolve, reject) => {
             connection.query(
-            `DELETE FROM Users WHERE username = \"${username}\"`,
+            `DELETE FROM Users WHERE _ID = \"${id}\"`,
             (error, results, fields) => { 
                 if (error) {
                     reject(error);

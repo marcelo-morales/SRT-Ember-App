@@ -19,10 +19,14 @@ router.get('/api/users', checkAdmin, async (req, res, next) => {
 //Used to create new user. Only admin can do
 router.post('/api/users', checkAdmin, async(req, res, next) => {
     try {
-        const { username, role } = req.body;
+        let { username, role } = req.body;
+        if (role === undefined) {
+            role  = req.body.data.attributes.role;
+        }
         const newUser = await user.create(username, role);
         res.status(200).json({user: newUser});
     } catch (err) {
+        console.log(err)
         next(err);
     }
 });
@@ -42,17 +46,18 @@ router.put('/api/users', async(req, res, next) => {
 
 
 //Deletes a user. Only Admin can do
-router.delete('/api/users/:username', checkAdmin, async(req, res, next) => {
+router.delete('/api/users/:id', checkAdmin, async(req, res, next) => {
     try {
-        let { username } = req.body;
+        const { id } = req.params;
 
-        if (username == undefined) {
-            throw new ApiError(400, "Username required to delete");
+        if (id == undefined) {
+            throw new ApiError(400, "Id required to delete");
         }
 
-        await user.delete(username);
-        res.status(200);
+        await user.delete(id);
+        res.status(200).json({id: id});
     } catch (err) {
+        console.log(err)
         next(err);
     }
     
