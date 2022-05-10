@@ -3,7 +3,7 @@ module.exports = function (environment) {
   let ENV = {
     modulePrefix: 'cosmology-class',
     environment,
-    rootURL: '/srt',
+    rootURL: '',
     locationType: 'auto',
     SRT_username: process.env.SRT_username,
     SRT_password: process.env.SRT_password,
@@ -25,6 +25,7 @@ module.exports = function (environment) {
   };
 
   if (environment === 'development') {
+	  ENV.rootURL = "/test-srt";
     // ENV.APP.LOG_RESOLVER = true;
     // ENV.APP.LOG_ACTIVE_GENERATION = true;
     // ENV.APP.LOG_TRANSITIONS = true;
@@ -45,6 +46,7 @@ module.exports = function (environment) {
   }
 
   if (environment === 'production') {
+	  ENV.rootURL = "/srt";
     // here you can enable a production-specific feature
   }
 

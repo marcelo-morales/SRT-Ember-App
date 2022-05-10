@@ -8,6 +8,10 @@
     src: url("./Fonts/Gentona-SemiBold.woff");
 }
 
+:root {
+	--fonts: Gentona-Light,system-ui,BlinkMacSystemFont,-apple-system,Segoe UI,sans-serif;
+	--header-fonts: Gentona-SemiBold;
+}
 
 
 * { 
@@ -23,7 +27,7 @@
     min-height: 780px;
     max-height: 100%;
     background: #f9f9f9;
-    margin: 0 auto;
+    margin: 0 ;
     overflow: hidden;
   }
 
@@ -113,7 +117,7 @@
 
 
 /*SRT styling*/
-.commandContainer {
+.rootContainer {
     margin:auto;
     position: relative;
     width: 60%;
@@ -131,6 +135,10 @@
 .basicCommands {
     position: relative;
     float: left;
+}
+
+.record {
+	width: 30%;
 }
 
 .record:invalid {
@@ -166,6 +174,12 @@
 
 .commands textarea:invalid{
     border: 2px solid red;
+}
+
+.commands input[type="button"] {
+	float: right;
+	margin-top: 2%;
+	width: 30%;
 }
 
 .break {
@@ -244,6 +258,9 @@ input[type="range"]::-moz-range-track {
     border-radius: 1px;
 }
 
+.rangeElem{
+	margin-top:4%;
+}
 .rangeWithOutput{
     display: flex;
     width: 100%;
@@ -254,6 +271,7 @@ input[type="range"]::-moz-range-track {
 }
 .rangeOutput {
     padding-left: 3%;
+
 }
 
 .popupbg {
@@ -264,6 +282,20 @@ input[type="range"]::-moz-range-track {
     opacity: 40%;
     z-index: 2;
 }
+.add {
+	width:20%;
+	float: right;
+	bottom: 0;
+	transform: translateX(-100%);
+}
+
+.addRanges {
+	width: 20%;
+	float: right;
+	transform: translateX(-95%);
+	margin-top: 2%;
+}
+
 /*login*/
 .login {
     position: absolute;
@@ -301,6 +333,7 @@ input[type="range"]::-moz-range-track {
 }
 
 .loginInput > input[type="text"] {
+	margin-top: 1%;
     width: 90%;
     height: 60%;
 }
@@ -334,6 +367,120 @@ input[type="range"]::-moz-range-track {
     right: 15%;
 }
 
+/*Class Route*/
+#srt1 {
+	width: 50%;
+	height: 90%;
+	min-height: 850px;
+	left:0;
+}
+
+#srt2 {
+	width: 50%;
+	height: 90%;
+	min-height: 850px;
+	right: 0;
+}
+
+#classRoute {
+	transform: translateX(5.5%);
+	height: 80%;
+	min-height: 600px;
+	/*background: rgba(128, 128, 128, 0.9);*/
+	background: linear-gradient(rgba(128, 128, 128, 0.8) 20%,  transparent );
+	
+}
+
+#classRoute div {
+	position: relative;
+	display: inline-block;
+	transform: translateX(70%);
+	top: 0;
+	margin:40px;
+}
+#classRoute div:hover {
+	background-color: grey;
+}
+#classRoute div label {
+	font-family: Gentona-Light,system-ui,BlinkMacSystemFont,-apple-system,Segoe UI,sans-serif;;
+	color:white;
+	position: absolute;
+	bottom:0;
+	left:0;
+	transform: translateX(9%);
+	white-space: nowrap;
+}
+
+.brochures img{
+	margin: 15px;
+	margin-bottom: 20px;
+}
+
+.telescopeImages {
+	position: absolute;
+	height: -30px;
+	
+}
+
+#contrast {
+	transform: translateX(7.5%);
+	width:100%;
+	height: 20%;
+	min-height: 100px;
+	background: linear-gradient( grey 0, transparent)
+
+}
+
+/*Admin route */
+table {
+	left: 50%;
+	transform: translateX(20%);
+	width: 75%;
+	height: 100%;
+	text-align: center;
+	vertical-align: center;
+	border: black solid 1px;
+}
+thead {
+	font-family: sans-serif;
+	font-size: 24px;
+	text-transform: uppercase;
+	background-color:rgba(0,45,114);
+	color: white;
+}
+tbody {
+	font-family: var(--fonts);
+	border-collapse: collapse;
+}
+td, th {
+	width: 20%;
+	padding: 100 rem;
+}
+tbody tr:nth-child(odd) {
+	background-color: #fff;
+}
+tbody tr:nth-child(even) {
+	background-color: #eee;
+}
+tbody tr:nth-child(odd) .usrDelete{
+	background-color: rgba(255,0,0,0.05);
+}
+tbody tr:nth-child(even) .usrDelete{
+	background-color: rgba(255,0,0,0.5);
+}	
+.usrDelete:hover {
+	cursor: pointer;
+}
+#adminBut1, #adminBut2 {
+	width: 25%;
+	height: 30px;
+	right: 0;
+	font-size: 17px;
+	transform: translateX(55%);
+
+	margin-top: 5%;
+}
+
 /*Fonts*/
 .route-linkto,
 .home-linkto {
@@ -353,5 +500,53 @@ input[type="range"]::-moz-range-track {
     font-size: 1.7rem;
 }
 
+/*Toast*/
+.toast{
+	position: absolute;
+	top: 12%;
+	left: 50%;
+	transform: translateX(-50%);
+	padding-top: 30px;
+	padding-bottom: 30px;
+	width: 240px;
+	border-radius: 10px;	
+	text-align: center;
+	color: white;
+	font-family: var(--fonts);
+	font-size: large;
+
+	-webkit-animation: fadein 0.5s, fadeout 0.5s 4.5s;
+	animation: fadein 0.5s, fadeout 0.5s 4.5s;
+}
+@-webkit-keyframes fadein {
+	from {top: 8%; opacity: 0;}
+	to {top: 12%; opacity: 1;}
+}
+@keyframes fadein {
+	from {top: 8%; opacity: 0;}
+	to {top: 12%; opacity: 1;}
+}
+@-webkit-keyframes fadeout {
+	from {top: 12%; opacity: 1;}
+	to {top: 8%; opacity: 0;}
+}
+@keyframes fadeout {
+	from {top: 12%; opacity: 1;}
+	to {top: 8%; opacity: 0;}
+}
+.error {
+	background-color: rgba(255, 0, 0, 1);
+	opacity: 95%;
+}
+
+.success {
+	background-color: rgb(0, 147, 0);
+	opacity: 95%;
+}
+
+
 
 /*General Css*/
+.button{ 
+	font-family: var(--fonts);
+}

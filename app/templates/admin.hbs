@@ -1,17 +1,17 @@
-<div class="commandContainer">
+<div class="rootContainer">
     <table class="users">
         <thead>
-            <tr>
+            <tr align="center">
                 <th scope="col">Username</th>
                 <th scope="col">Password</th>
                 <th scope="col">Role</th>
-                <th scope="col">Login attempts</th>
-                <th scope="col">Delete</th>
+                <th scope="col">Login Attempts</th>
+                <th scope="col" >Delete</th>
             </tr>
         </thead>
         <tbody>
             {{#each this.model as |usr|}}
-                <tr id={{usr.id}}>
+                <tr id={{usr.id}} >
                     <td>{{usr.username}}</td>
                     {{#if usr.password}}
                         <td>{{usr.password}}</td>    
@@ -20,7 +20,7 @@
                     {{/if}}
                     <td>{{usr.role}}</td>
                     <td>{{usr.attempts}}</td>
-                    <td {{on "click" this.delete}}> Delete
+                    <td class="usrDelete" {{on "click" this.delete}}> Delete
                     </td>
                 </tr>
             {{/each}}
@@ -28,6 +28,6 @@
         </tbody>
     
 </table>
-<Input @type="button" @value="Create User" {{on "click" this.createUser}}/>
-<Input @type="button" @value="Create Admin" {{on "click" this.createAdmin}}/>
+<Input id="adminBut1" class="button" @type="button" @value="Create User" {{on "click" this.createUser}}/>
+<Input id="adminBut2" class="button"@type="button" @value="Create Admin" {{on "click" this.createAdmin}}/>
 </div>

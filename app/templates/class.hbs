@@ -1,0 +1,15 @@
+<img class="telescopeImages" id="srt1" src="./assets/images/SRT1.png"/>
+<img class="telescopeImages" id="srt2"src="./assets/images/SRT2.png"/>
+<div class="rootContainer">
+	<div id="classRoute" >
+		{{#each this.files as |file| }}
+		<div>
+			<a href="#" class="brochures" {{on "click" this.openPdf}}>
+				<img id={{file}} src="./assets/icons/icons8-pdf-80.png">
+			</a>	
+			<label for={{file}}>{{file}}</label>
+		</div>
+		{{/each}}
+	</div>
+</div>
+

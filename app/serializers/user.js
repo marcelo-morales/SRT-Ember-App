@@ -32,7 +32,6 @@ export default class userSerializer extends JSONAPISerializer {
             attempts: 0
         }
     }
-    console.log(data)
     payload["data"] = data;
     delete payload.user;
     return super.normalizeCreateRecordResponse(...arguments);
