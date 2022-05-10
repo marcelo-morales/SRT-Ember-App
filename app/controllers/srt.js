@@ -11,6 +11,7 @@ export default class SrtController extends Controller {
   RECORD_LIMIT = 1800;
   recording = false;
   @service('login') authentication;
+  @service('toast') toast;
   @tracked prevCommand = ['', ''];
   @tracked command = "";
 
@@ -26,10 +27,11 @@ export default class SrtController extends Controller {
   @tracked azoff;
   @tracked eloff;
 
+  //Toggles the radio button to 25Scan
   @action toggle25Point() {
     this.is25Scan = true;
   }
-
+  //Toggles radio button to BeamSwitch
   @action toggleBeamswitch() {
     this.is25Scan = false;
   }
@@ -54,7 +56,8 @@ export default class SrtController extends Controller {
   @action addFrequency(){
     let element = document.getElementById('freq');
     if (this.freq === undefined || this.freq === "") {
-      element.setCustomValidity('Frequency cannot be empty');
+      element.setCustomValidity("false");
+	  this.toast.toggleVisible("error", 'Frequency cannot be empty')
       setTimeout(() => {
         element.setCustomValidity('');
       }, 2000);
@@ -110,14 +113,17 @@ export default class SrtController extends Controller {
     let time_temp = this.totalTime;
     let element = document.getElementById('record_time');
     if (this.recordTime === undefined || this.recordTime === "") {
-      element.setCustomValidity("Time cannot be empty");
+      element.setCustomValidity("false");
+	  this.toast.toggleVisible("error", "Time cannot be empty");
       setTimeout(() => {
         element.setCustomValidity('');
       }, 2000);
       return;
     }
     if ((time_temp += parseInt(this.recordTime)) >= this.RECORD_LIMIT) {
-      element.setCustomValidity("You have exceeded the maximum session time");
+      this.toast.toggleVisible("error", "You have exceeded the maximum session time");
+	  element.setCustomValidity("false");
+	  
       setTimeout(() => {
         element.setCustomValidity('');
       }, 3000);
@@ -135,7 +141,7 @@ export default class SrtController extends Controller {
     this.sourceName = source;
   }
 
-  //TODO: Check if command is duplicate
+  //Validates command and submits to srt computer
     @action async submitCommand() { 
         try { 
             
@@ -155,7 +161,6 @@ export default class SrtController extends Controller {
             }
              
             this.command = this.command.concat('\n: roff\n: stow\n: vplot');
-            //Need to Authenticate submitting of code on server side
             let query = this.store.createRecord('query', {
                 command: this.command,
                 id: this.idCount,
@@ -167,16 +172,19 @@ export default class SrtController extends Controller {
                 console.error(error);
             }
             this.idCount++;
+			this.toast.toggleVisible("success", "Command is submitted. Results will be sent to your email");
             
         } catch (error) {
             if (error instanceof InputError) {
                 document.getElementById(error.element_id).setCustomValidity(error.message);
+				this.toast.toggleVisible("error", error.message)
             } else {
                 console.error(error, typeof error);
             }
         }
     }
 
+	//Checks whether user is logged in or if token is valid
     async performAuthentication() {
         if (checkCookieExist("token")) {
             let b = this.store.createRecord('verify');
