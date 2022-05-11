@@ -72,3 +72,78 @@ Specify what it takes to deploy your app.
 * Development Browser Extensions
   * [ember inspector for chrome](https://chrome.google.com/webstore/detail/ember-inspector/bmdblncegkenkacieihfhpjfppoconhi)
   * [ember inspector for firefox](https://addons.mozilla.org/en-US/firefox/addon/ember-inspector/)
+
+# Structure
+
+## Components
+  ### Livefeed
+   * Controls the display of the livefeed for the controller. 
+
+### Login
+* Controls the display of the login popup. 
+
+### Nav-Bar
+* Component that controls the navigation bar. 
+
+## Templates
+* Html for the defined routes.
+### Application
+* Base template for the entire application. Inherited by all other templates.
+### Admin
+* Only accessible by an admin user. 
+* Displays list of all users in the database. 
+* Allows for the creation and deletion of users.
+### Class
+* Accessible to anyone. 
+* Displays all materials related to CLASS as well as images of the telescope.
+### Srt
+* Allows for the submission of commands to the srt telescope. 
+* Accessible to anyone but only logged in users can submit commands.
+
+## Routes
+* Sets up the context for the corresponding template, i.e. required models or application states.
+
+## Services
+* Allows for the sharing of private component states with the entire application.
+### Livestream
+* Shares whether the livestream viewer is visible or not
+### Login
+* Shares whether the login popup is visible or not
+
+## Serializers
+* Used to transform network responses from its corresponding template to Ember's model responses.
+
+## Models. 
+* Ember structure for defining and storing data.
+### Authenticate
+* Stores information of a user who uses username and password to login.
+### Query
+* Stores the command to be sent to the telescope as well as the email. 
+### Result **TODO**
+* Stores results of telescope readings from previous command submissions. 
+### Source
+* Stores the sources acquired from the telescope.
+### User
+* Stores user information accessed by the admin from the database.
+### Verify
+* Stores information of a user who uses a token to login.
+
+## Adapters.
+* Used to transform network requests from its corresponding template to match backends url structure.
+
+## Controllers
+* Used to define behavior for its corresponding template
+
+## Helpers
+* Helper functions not belonging to any controllers or components. 
+
+# Development
+### Adding new files to the website
+* Place the pdf file under the correct public folder. "./public/"
+* Under the route, add the filename to the files array.
+* Build ember app and deploy it to the file system.
+## TODO 
+* Add a results template that displays previously submitted commands. 
+* Overlay the command provided by the user on a starmap. Allows user to see how the commands move the telescope.
+* Ensure that the camera is working. 
+* Add documentation for the commands. 
