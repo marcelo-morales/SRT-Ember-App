@@ -139,3 +139,4 @@ Specify what it takes to deploy your app.
 * Add a results template that displays previously submitted commands. 
 * Overlay the command provided by the user on a starmap. Allows user to see how the commands move the telescope.
 * Try deploying the backend to the SRT computer connected to the telescope. You would need an outfacing ip address or domain to connect to it. 
+* Limits for the Galatic Latitude, Galactic Longitude, Azimuth Offset and Elevation Offset are required in order to show the correct value for the ranges. 
