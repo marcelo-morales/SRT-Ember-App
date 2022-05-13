@@ -17,7 +17,6 @@ You will need the following things properly installed on your computer.
 * `git clone <repository-url>` this repository
 * `cd cosmology-class`
 * `npm install`
-* `node .\api\MySQL\setup.js` this ensures that the database to be used is already setup
 
 You will need to create a file in root folder named __.env__ and fill out the following variables
 
@@ -30,7 +29,7 @@ SRT_password="" #Password for the camera feed
 
 
 ## Running / Development
-
+*  SRT Backend must be running.
 * `ember serve`
 * Visit your app at [http://localhost:4200](http://localhost:4200).
 * Visit your tests at [http://localhost:4200/tests](http://localhost:4200/tests).
