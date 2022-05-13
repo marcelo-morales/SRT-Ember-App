@@ -21,7 +21,7 @@ export default class LivefeedComponent extends Component {
         return getOwner(this).lookup('service:live-stream');
     }
     get IPaddress() {
-        return '10.162.60.78:80';
+        return '128.220.122.28';
     }
     get username() {
         return encodeURIComponent(ENV.SRT_username);
@@ -30,6 +30,6 @@ export default class LivefeedComponent extends Component {
         return encodeURIComponent(ENV.SRT_password);
     }
     get static() {
-        return 'ISAPI/Streaming/channels/102/httpPreview';
+        return 'cgi-bin/mjpg/video.cgi?[channel=<channelno>]&subtype=1';
     }
 }
